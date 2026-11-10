@@ -44,7 +44,7 @@
     const query = input.value.trim();
     chosen = -1;
     if (!query) {
-      results.innerHTML = '<div class="search-empty"><strong>■■■■■■■ ■■■■■■ ■ ■■■■■■■</strong><p>■■■■■■■■■ ■■■■■■■■■■■■ ■■■■■■■ ■■■■■ ■■■ ■■■■■■■■■■■</p></div>';
+      results.innerHTML = '<div class="search-empty"><strong>Найдите нужное в задании</strong><p>Например: репозиторий, артбук, сроки или управление.</p></div>';
       return;
     }
     const terms = normalize(query).split(/\s+/);
@@ -57,7 +57,7 @@
       const start = first > 70 ? first - 55 : 0;
       const snippet = (start ? '…' : '') + r.body.slice(start,start+190) + (r.body.length > start+190 ? '…' : '');
       return '<a class="search-result" href="'+escape(window.RKITheme.withTheme(base+r.url))+'"><span class="search-result-path">'+escape(r.pageTitle)+'</span><strong>'+mark(r.title,query.split(/\s+/))+'</strong><p>'+mark(snippet,query.split(/\s+/))+'</p></a>';
-    }).join('') : '<div class="search-empty"><strong>■■■■■■ ■■ ■■■■■■■</strong><p>■■■■■■■■■■ ■■■■■■ ■■■■■ ■■■ ■■■■■ ■■■■■■■■ ■■■■■■■</p></div>';
+    }).join('') : '<div class="search-empty"><strong>Ничего не найдено</strong><p>Попробуйте другое слово или более короткий запрос.</p></div>';
   }
   function openSearch() {
     priorFocus = document.activeElement;
@@ -131,8 +131,8 @@
         area.value = value; area.style.position='fixed'; area.style.opacity='0'; document.body.append(area); area.select();
         const copied = document.execCommand('copy'); area.remove(); if(!copied) throw new Error('copy');
       }
-      toast('■■■■■■■■■■■');
-    } catch { toast('■■ ■■■■■■■ ■■■■■■■■■■■■ ■■■■■■■■ ■■■■■ ■■■■■■■■'); }
+      toast('Скопировано');
+    } catch { toast('Не удалось скопировать. Выделите текст вручную.'); }
   }
   document.querySelector('[data-copy-page]').addEventListener('click',()=>copy(location.href));
   document.querySelectorAll('[data-copy]').forEach(el => el.addEventListener('click',()=>copy(el.dataset.copy)));
