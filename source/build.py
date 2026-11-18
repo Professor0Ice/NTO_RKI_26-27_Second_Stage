@@ -37,6 +37,8 @@ def block_html(block, base=''):
     kind = block['type']
     if kind == 'p':
         return f'<p>{text(block["text"])}</p>'
+    if kind == 'qa':
+        return f'<h3>{text(block["title"])}</h3><p>{text(block["text"])}</p>'
     if kind == 'callout':
         heading = f'<strong>{text(block["title"])}</strong>' if block.get('title') else ''
         link = f'<p><a href="{href(block["page"],base)}">{text(block["linkText"])}</a></p>' if block.get('page') else ''
@@ -75,7 +77,7 @@ HOME = {
 ALL = [HOME]+PAGES
 
 def navigation(page,base):
-    groups=[('Задание',['home','general','age-rating']),('Блоки работы',['game-design','art','programming','product']),('Материалы',['submission'])]
+    groups=[('Задание',['home','general','age-rating','faq']),('Блоки работы',['game-design','art','programming','product']),('Материалы',['submission'])]
     result=[]
     for group,slugs in groups:
         links=[]
@@ -92,6 +94,7 @@ def homepage(base):
     card_descriptions={
       'general':'Идея игры, ограничения, команда, сроки и инструменты.',
       'age-rating':'Границы допустимого содержания игры и материалов.',
+      'faq':'Ответы на частые вопросы участников.',
       'game-design':'Опыт игрока, игровые циклы и концепт-документ.',
       'art':'Визуальный образ игры в артбуке из семи страниц.',
       'programming':'Центральный цикл, архитектура и три уровня реализации.',
